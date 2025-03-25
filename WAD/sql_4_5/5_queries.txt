@@ -1,0 +1,113 @@
+SELECT * from User;
+SELECT * from Installation;
+
+-- -- list distributor with most installation in domestic places.
+-- SELECT 
+--     V.Name AS Distributor_Name,
+--     'Domestic' AS Installation_Type,
+--     COUNT(I.Installation_ID) AS Number_of_Installations
+-- FROM 
+--     Installation I
+-- JOIN 
+--     Vendor V ON I.TIN_Number = V.TIN_Number
+-- WHERE 
+--     I.panel_usage = 'Domestic'
+-- GROUP BY 
+--     V.Name
+-- ORDER BY 
+--     Number_of_Installations DESC
+-- LIMIT 1;
+
+
+
+-- list the place name with highest capacity panel installed
+-- SELECT 
+--     U.Address AS Place_Name,
+--     MAX(U.Capacity) AS Highest_Capacity
+-- FROM 
+--     User U
+-- JOIN 
+--     Installation I ON U.User_ID = I.User_ID
+-- GROUP BY 
+--     U.Address
+-- ORDER BY 
+--     Highest_Capacity DESC
+-- LIMIT 1;
+
+
+
+-- display the area where monocrystalline panels are installed
+-- SELECT DISTINCT
+--     U.Address AS Area,
+--     S.panel_type AS Panel_Type
+-- FROM 
+--     User U
+-- JOIN 
+--     Installation I ON U.User_ID = I.User_ID
+-- JOIN 
+--     SolarPanel S ON I.PV_Module_ID = S.PV_Module_ID
+-- WHERE 
+--     S.panel_type = 'Monocrystalline';
+    
+
+-- for the specific area display the total installation charges for both type of pv modules
+/*SELECT 
+    U.Address AS Area,
+    S.panel_type AS Panel_Type,
+    SUM(S.Installation_Charge) AS Total_Installation_Charges
+FROM 
+    User U
+JOIN 
+    Installation I ON U.User_ID = I.User_ID
+JOIN 
+    SolarPanel S ON I.PV_Module_ID = S.PV_Module_ID
+    where S.panel_type='Monocrystalline'
+GROUP BY 
+    U.Address, S.panel_type
+ORDER BY 
+    U.Address, S.panel_type;*/
+    
+    
+-- list the details of distributors and panel that is the oldest installation
+-- list the details of distributors and panel that is the oldest installation
+SELECT 
+    V.Name AS Distributor_Name,
+    S.PV_Module_ID,
+    S.Installation_Charge AS Price,
+    S.panel_type AS PV_Type,
+    U.Capacity,
+    I.Installation_Date
+FROM 
+    Installation I
+JOIN 
+    Vendor V ON I.TIN_Number = V.TIN_Number
+JOIN 
+    SolarPanel S ON I.PV_Module_ID = S.PV_Module_ID
+JOIN 
+    User U ON I.User_ID = U.User_ID
+WHERE 
+    I.Installation_Date = (
+        SELECT MIN(Installation_Date)
+        FROM Installation
+    )
+LIMIT 1;
+
+
+
+
+-- find the average sales of both type of panels in only commercial places. 
+-- SELECT 
+--     'Commercial' AS Installation_Type,
+--     S.panel_type AS Panel_Type,
+--     AVG(S.Installation_Charge) AS Average_Installation_Charge
+-- FROM 
+--     Installation I
+-- JOIN 
+--     SolarPanel S ON I.PV_Module_ID = S.PV_Module_ID
+-- WHERE 
+--     I.panel_usage = 'Commercial'
+-- GROUP BY 
+--     S.panel_type;
+    
+    
+    

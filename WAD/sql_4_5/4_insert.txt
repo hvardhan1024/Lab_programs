@@ -1,0 +1,53 @@
+
+
+INSERT INTO department VALUES (1, 'Finance', '100000001', '2020-01-01');
+INSERT INTO department VALUES (2, 'HR', '100000002', '2019-05-15');
+INSERT INTO department VALUES (3, 'R&D', '100000003', '2018-07-20');
+INSERT INTO department VALUES (4, 'IT', '100000004', '2021-09-10');
+
+-- Insert data into employee
+INSERT INTO employee VALUES ('100000001', 'Raj', 'Sharma', 'Mumbai', 80000, 'M', '1985-06-15', '100000001', 1);
+INSERT INTO employee VALUES ('100000002', 'Priya', 'Mehta', 'Delhi', 60000, 'F', '1990-02-25', '100000001', 2);
+INSERT INTO employee VALUES ('100000003', 'Amit', 'Kumar', 'Pune', 90000, 'M', '1983-11-05','100000001', 3);
+INSERT INTO employee VALUES ('100000004', 'Neha', 'Verma', 'Bangalore', 75000, 'F', '1988-08-19', '100000003', 3);
+INSERT INTO employee VALUES ('100000005', 'Suresh', 'Yadav', 'Chennai', 70000, 'M', '1992-01-12', '100000001', 1);
+INSERT INTO employee VALUES ('100000006', 'Anita', 'Das', 'Kolkata', 55000, 'F', '1995-07-30', '100000002', 2);
+INSERT INTO employee VALUES ('100000007', 'Vikram', 'Singh', 'Hyderabad', 88000, 'M', '1987-03-10', '100000003', 3);
+INSERT INTO employee VALUES ('100000008', 'Pooja', 'Rao', 'Mumbai', 72000, 'F', '1991-09-25', '100000004', 4);
+
+-- Insert data into project
+INSERT INTO project VALUES ('P01', 'AI Research', 'Bangalore', 3, '2022-06-30', 1500000);
+INSERT INTO project VALUES ('P02', 'Cloud Infra', 'Mumbai', 4, '2026-12-15', 2000000);
+INSERT INTO project VALUES ('P03', 'Cyber Security', 'Delhi', 1, '2024-11-10', 1000000);
+INSERT INTO project VALUES ('P04', 'HR Management', 'Chennai', 2, '2023-03-20', 1200000);
+INSERT INTO project VALUES ('P05', 'Finance App', 'Pune', 1, '2003-09-05', 1800000);
+INSERT INTO project VALUES ('P06', 'ML Research', 'Hyderabad', 3, '2027-05-12', 2500000);
+INSERT INTO project VALUES ('P07', 'IOT Research', 'Kolkata', 3, '2027-05-14', 2000000);
+
+-- Insert data into works_on
+INSERT INTO works_on VALUES ('100000003', 'P01', 30);
+INSERT INTO works_on VALUES ('100000004', 'P01', 25);
+INSERT INTO works_on VALUES ('100000007', 'P01', 35);
+INSERT INTO works_on VALUES ('100000003', 'P06', 40);
+INSERT INTO works_on VALUES ('100000007', 'P06', 30);
+INSERT INTO works_on VALUES ('100000002', 'P04', 20);
+INSERT INTO works_on VALUES ('100000005', 'P05', 25);
+INSERT INTO works_on VALUES ('100000001', 'P03', 15);
+INSERT INTO works_on VALUES ('100000008', 'P02', 22);
+INSERT INTO works_on VALUES ('100000003', 'P07', 24);
+
+-- Insert data into dependent
+INSERT INTO dependent VALUES ('100000001', 'Aarav', 'Son', 'M');
+INSERT INTO dependent VALUES ('100000002', 'Diya', 'Daughter', 'F');
+INSERT INTO dependent VALUES ('100000003', 'Rahul', 'Son', 'M');
+INSERT INTO dependent VALUES ('100000004', 'Sneha', 'Daughter', 'F');
+INSERT INTO dependent VALUES ('100000005', 'Kavya', 'Spouse', 'F');
+
+-- Insert data into dlocation
+INSERT INTO dlocation VALUES (1, 'Mumbai');
+INSERT INTO dlocation VALUES (2, 'Chennai');
+INSERT INTO dlocation VALUES (3, 'Bangalore');
+INSERT INTO dlocation VALUES (4, 'Delhi');
+
+
+

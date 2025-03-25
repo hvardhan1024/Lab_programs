@@ -1,0 +1,104 @@
+-- select * from employee; 
+-- select * from department;
+-- SELECT * FROM dependent;
+
+--   SELECT dnum
+--         FROM department
+--         WHERE dname = 'Finance';
+        
+--     SELECT AVG(salary)
+--     FROM employee
+--     WHERE dno = (
+--         SELECT dnum
+--         FROM department
+--         WHERE dname = 'Finance'
+--     );
+    
+-- --   list the fname, lname and dname of the employees who draw salary greater than the 
+-- -- average salary of employees working for finance department
+-- SELECT e.fname, e.lname, d.dname,salary
+-- FROM employee e
+-- JOIN department d ON e.dno = d.dnum
+-- WHERE e.salary > (
+--     SELECT AVG(salary)
+--     FROM employee
+--     WHERE dno = (
+--         SELECT dnum
+--         FROM department
+--         WHERE dname = 'Finance'
+--     )
+-- );
+
+
+
+-- -- list the name and department of the employees working on more than 2 projects controlled by R&D Department NNN
+-- -- SELECT e.fname, e.lname, d.dname
+-- -- FROM employee e
+-- -- JOIN department d ON e.dno = d.dnum
+-- -- JOIN works_on w ON e.ssn = w.essn
+-- -- JOIN project p ON w.pno = p.pno
+-- -- WHERE p.dnumber = (
+-- --     SELECT dnum
+-- --     FROM department
+-- --     WHERE dname = 'R&D'
+-- -- )
+-- -- GROUP BY e.ssn, e.fname, e.lname, d.dname
+-- -- HAVING COUNT(w.pno) > 2;
+
+
+-- -- list all the ongoing projects controlled by all the departments: comp_date means completion date
+-- -- SELECT p.pno, p.pname, p.plocation, d.dname, p.comp_date
+-- -- FROM project p
+-- -- JOIN department d ON p.dnumber = d.dnum
+-- -- WHERE p.comp_date > CURRENT_DATE OR p.comp_date IS NULL;
+
+
+-- -- give the details of the supervisor who is supervising more than 3 employees who have  NNN
+-- -- completed atleast one project
+-- -- SELECT s.fname, s.lname, s.ssn, s.address, s.salary, s.gender, s.bdate, s.dno
+-- -- FROM employee e
+-- -- JOIN employee s ON e.superssn = s.ssn
+-- -- JOIN works_on w ON e.ssn = w.essn
+-- -- JOIN project p ON w.pno = p.pno
+-- -- WHERE p.comp_date <= CURRENT_DATE
+-- -- GROUP BY s.ssn, s.fname, s.lname, s.address, s.salary, s.gender, s.bdate, s.dno
+-- -- HAVING COUNT(DISTINCT e.ssn) > 3;
+
+-- -- list the name of the dependents employee who has completed a total_projects worth 10L
+-- SELECT 
+--     e.ssn AS employee_id,
+--     CONCAT(e.fname, ' ', e.lname) AS employee_name,
+--     SUM(p.budget) AS total_project_amount,
+--     d.dependent_name
+-- FROM employee e
+-- JOIN works_on w ON e.ssn = w.essn
+-- JOIN project p ON w.pno = p.pno
+-- JOIN dependent d ON e.ssn = d.essn
+-- WHERE p.comp_date <= CURRENT_DATE
+-- GROUP BY e.ssn, e.fname, e.lname, d.dependent_name
+-- HAVING SUM(p.budget) >= 1000000;
+
+-- SELECT e.ssn,e.fname,e.lname,d.dependent_name from employee e,dependent d WHERE
+-- essn=ssn and ssn in (
+-- SELECT w.essn from works_on w,project p WHERE
+-- p.pno=w.pno and current_date>p.comp_date and p.pno in (
+-- SELECT pno FROM project WHERE budget > 1000000
+-- )
+-- );
+
+
+-- SELECT w.essn,p.pno from works_on w,project p WHERE
+-- p.pno=w.pno and current_date>p.comp_date and p.pno in (
+-- SELECT pno FROM project WHERE budget > 1000000
+-- );
+-- SELECT pno FROM project WHERE budget > 1000000;
+
+-- -- -- list the employees whose project is in more than one city
+-- -- SELECT 
+-- --     e.ssn AS employee_id,
+-- --     e.fname AS employee_first_name,
+-- --     e.lname AS employee_last_name
+-- -- FROM employee e
+-- -- JOIN works_on w ON e.ssn = w.essn
+-- -- JOIN project p ON w.pno = p.pno
+-- -- GROUP BY e.ssn, e.fname, e.lname

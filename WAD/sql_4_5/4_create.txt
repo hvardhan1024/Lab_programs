@@ -1,0 +1,71 @@
+-- show tables;
+-- drop table project;
+-- drop table deptlocations;
+-- drop table dependent;
+-- drop table department;
+-- drop table employee;
+-- drop table dlocation;
+-- drop table works_on;
+
+
+-- Create department table
+CREATE TABLE department (
+    dnum DECIMAL(3,0) NOT NULL PRIMARY KEY,
+    dname VARCHAR(15) NOT NULL UNIQUE,
+    mgr_ssn VARCHAR(9),
+    mgr_start_date DATE0000002, 
+);
+
+-- Create employee table
+CREATE TABLE employee (
+    ssn VARCHAR(9) PRIMARY KEY,
+    fname VARCHAR(15) NOT NULL,
+    lname VARCHAR(10) NOT NULL,
+    address VARCHAR(50),
+    salary DECIMAL(8,0),
+    gender VARCHAR(1),
+    bdate DATE,
+    superssn VARCHAR(9),
+    dno DECIMAL(3,0),
+    FOREIGN KEY (dno) REFERENCES department(dnum) ON DELETE CASCADE,
+    FOREIGN KEY (superssn) REFERENCES employee(ssn)
+);
+
+-- Create project table
+CREATE TABLE project (
+    pno VARCHAR(3) PRIMARY KEY,
+    pname VARCHAR(20) NOT NULL UNIQUE,
+    plocation VARCHAR(20),
+    dnumber DECIMAL(3,0),
+    comp_date DATE,
+    budget NUMERIC(12,0),
+    FOREIGN KEY (dnumber) REFERENCES department(dnum) ON DELETE CASCADE
+);
+
+-- Create dependent table
+CREATE TABLE dependent (
+    essn VARCHAR(9) NOT NULL,
+    dependent_name VARCHAR(20) NOT NULL,
+    relation VARCHAR(20),
+    sex VARCHAR(1),
+    PRIMARY KEY (essn, dependent_name),
+    FOREIGN KEY (essn) REFERENCES employee(ssn) ON DELETE CASCADE
+);
+
+-- Create dlocation table
+CREATE TABLE dlocation (
+    dnum DECIMAL(3,0),
+    location VARCHAR(20) NOT NULL,
+    FOREIGN KEY (dnum) REFERENCES department(dnum) ON DELETE CASCADE
+);
+
+-- Create works_on table
+CREATE TABLE works_on (
+    essn VARCHAR(9) NOT NULL,
+    pno VARCHAR(3) NOT NULL,
+    work_hour DECIMAL(5,2),
+    PRIMARY KEY (essn, pno),
+    FOREIGN KEY (essn) REFERENCES employee(ssn) ON DELETE CASCADE,
+    FOREIGN KEY (pno) REFERENCES project(pno) ON DELETE CASCADE
+);
+
